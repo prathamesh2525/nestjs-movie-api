@@ -16,8 +16,8 @@ Before you begin, ensure you have met the following requirements:
 1. **Clone the repository:**
 
 ```sh
-git clone <repository-url>
-cd <repository-directory>
+git clone https://github.com/prathamesh2525/nestjs-movie-api
+cd nestjs-movie-api
 ```
 
 2. **Install the dependencies:**
