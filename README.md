@@ -1,73 +1,125 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+# NestJS Movie Management API
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+This is a simple movie management API built with NestJS and PostgreSQL. It supports basic CRUD operations and allows users to manage a collection of movies.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Prerequisites
 
-## Description
+Before you begin, ensure you have met the following requirements:
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+- Node.js (version 16.x)
+- Docker (for running PostgreSQL in a container)
+- Docker Compose
+- NestJS CLI
 
 ## Installation
 
-```bash
-$ npm install
+1. **Clone the repository:**
+
+```sh
+git clone <repository-url>
+cd <repository-directory>
 ```
 
-## Running the app
+2. **Install the dependencies:**
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```sh
+npm install
 ```
 
-## Test
+3. **Install NestJS CLI (if not already installed):**
 
-```bash
-# unit tests
-$ npm run test
+```sh
+npm install -g @nestjs/cli
 
-# e2e tests
-$ npm run test:e2e
-
-# test coverage
-$ npm run test:cov
 ```
 
-## Support
+**_Running the App Locally_**
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
+1. Create a `docker-compose.yml` file:
 
-## Stay in touch
+```yml
+version: '3.9'
+services:
+  nestapp:
+    container_name: nestmovie
+    build: .
+    ports:
+      - '3000:3000'
+    environment:
+      - DB_TYPE=postgres
+      - PG_HOST=db
+      - PG_PORT=5432
+      - PG_USER=postgres
+      - PG_PASSWORD=postgres
+      - PG_DB=postgres
+    depends_on:
+      - db
+  db:
+    container_name: db
+    image: postgres:12
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+volumes:
+  pgdata: {}
+```
 
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+2. **_Start DOcker container_**
 
-## License
+```sh
+docker-compose up -d
+```
 
-Nest is [MIT licensed](LICENSE).
+4. **_Update `.env` file:_**
+   Create a `.env` file in the root of the project and add the following variables:
+
+```env
+DB_TYPE=postgres
+PG_HOST=db
+PG_PORT=5432
+PG_USER=postgres
+PG_PASSWORD=postgres
+PG_DB=postgres
+
+```
+
+5. **_ Start the NestJS Application_**
+
+```sh
+npm run start:dev
+```
+
+**Connecting to PostgreSQL Locally**
+
+1. **_Install PostgreSQL on your local machine and ensure it is running_**
+2. **_Create a PostgreSQL Database:_**
+
+```sh
+psql -U postgres
+CREATE DATABASE nestdb;
+```
+
+3. **_Update `.env` file with your locally PostgreSQL connection: _**
+
+```env
+DB_TYPE=postgres
+PG_HOST=localhost
+PG_PORT=5432
+PG_USER=your_postgres_user
+PG_PASSWORD=your_postgres_password
+PG_DB=nestdb
+
+```
+
+**Testing the API**
+**_EndPoints_**
+
+- GET /movie - Get all movies
+- GET /movie/:id - Get a specific movie by ID
+- PATCH /movie/:id/rate - rate a movie
+- GET /movie/sorted/rating - Get all movies sorted by rating
