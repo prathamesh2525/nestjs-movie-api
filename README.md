@@ -1,14 +1,15 @@
 # NestJS Movie Management API
 
-This is a simple movie management API built with NestJS and PostgreSQL. It supports basic CRUD operations and allows users to manage a collection of movies.
+Get all movies: Users can access a comprehensive list of all available movies.
+Filter by genre: Users can narrow down their search by selecting specific genres of interest.
+Rate a movie: Users can rate a movie, providing feedback on their experience and contributing to the overall rating of the film.
+Sort by rating: Users can view movies ranked by user ratings, helping them discover popular and highly-rated films.
 
 ## Prerequisites
 
 Before you begin, ensure you have met the following requirements:
 
 - Node.js (version 16.x)
-- Docker (for running PostgreSQL in a container)
-- Docker Compose
 - NestJS CLI
 
 ## Installation
