@@ -1,9 +1,9 @@
 # NestJS Movie Management API
 
-Get all movies: Users can access a comprehensive list of all available movies.
-Filter by genre: Users can narrow down their search by selecting specific genres of interest.
-Rate a movie: Users can rate a movie, providing feedback on their experience and contributing to the overall rating of the film.
-Sort by rating: Users can view movies ranked by user ratings, helping them discover popular and highly-rated films.
+- Get all movies: Users can access a comprehensive list of all available movies.
+- Filter by genre: Users can narrow down their search by selecting specific genres of interest.
+- Rate a movie: Users can rate a movie, providing feedback on their experience and contributing to the overall rating of the film.
+- Sort by rating: Users can view movies ranked by user ratings, helping them discover popular and highly-rated films.
 
 ## Prerequisites
 

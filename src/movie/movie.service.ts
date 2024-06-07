@@ -17,6 +17,9 @@ export class MovieService {
   async findOne(id: number): Promise<Movie> {
     return this.movieRepository.findOne({ where: { id } });
   }
+  async filterByGenre(genre: string): Promise<Movie[]> {
+    return this.movieRepository.find({ where: { genre: genre } });
+  }
 
   async rateMovie(id: number, rating: number): Promise<Movie> {
     const movie = await this.movieRepository.findOne({ where: { id } });

@@ -39,4 +39,9 @@ export class MovieController {
   async movieSortedByRating(): Promise<Movie[]> {
     return this.movieService.sortByRating();
   }
+
+  @Get('genre/:genre')
+  async findByGenre(@Param('genre') genre: string): Promise<Movie[]> {
+    return this.movieService.filterByGenre(genre);
+  }
 }
